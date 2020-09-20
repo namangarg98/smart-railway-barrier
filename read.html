@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+<title>
+Get status
+</title>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<style>
+.hide {
+display:none;}
+</style>
+<body>
+<input type="text" class="result" />
+<button class="check">Check</button>
+<div class="status hide">Checking...Please wait</div>
+<script>
+const y = document.querySelector(".result");
+const z = document.querySelector(".status");
+let x = document.querySelector(".check");
+x.addEventListener("click",() => {
+axios.get("http://api.thingspeak.com/channels/919752/feeds/last.json?api_key=N1PWU4HPUXAE7JY7")
+.then(response => {
+console.log(response);
+y.value = response.data.field1 + " " + response.data.created_at;
+z.classList.remove("hide");
+z.innerHTML = "Alert! Train is coming.";
+});
+});
+</script>
+</body>
+</html>
